@@ -1,0 +1,29 @@
+import streamlit as st
+
+# Titre de l'application
+st.title("Bigo Live Redirect Automation")
+
+# Instructions
+st.write("Cliquez sur le bouton ci-dessous pour être redirigé vers l'application Bigo Live.")
+
+# Bouton pour redirection
+if st.button('Redirection vers Bigo Live'):
+    js_code = '''
+    <script async="text/javascript">
+        var full_package_name = 'sg.bigo.live';
+        var full_package_name_len = full_package_name.length;
+        var index_of_last_dash = full_package_name.lastIndexOf('-');
+        var package_name = index_of_last_dash < 0 ? full_package_name : full_package_name.slice(0, index_of_last_dash);
+        var app_link = 'bigolive://livevideoshow?roomid=7015338174445824037&uid=560092345&visitor=1&code=6893554100&act=act39011&af_deeplink=true&af_dp=bigolive%3A%2F%2Flivevideoshow%3Froomid%3D7015338174445824037%26uid%3D560092345%26visitor%3D1%26code%3D6893554100%26act%3Dact39011&campaign=bigolive%3A%2F%2Flivevideoshow%3Froomid%3D7015338174445824037%26uid%3D560092345%26visitor%3D1%26code%3D6893554100&is_retargeting=true&media_source=SBLX';
+        var store_link = 'market://details?id=sg.bigo.live&referrer=af_tranid%3DxwZwLE7nEHsXobSZHHOJcw%26af_dp%3Dbigolive%253A%252F%252Flivevideoshow%253Froomid%253D7015338174445824037%2526uid%253D560092345%2526visitor%253D1%2526code%253D6893554100%2526act%253Dact39011%26c%3Dbigolive%3A%2F%2Flivevideoshow%3Froomid%3D7015338174445824037%26uid%3D560092345%26visitor%3D1%26code%3D6893554100%26pid%3DSBLX';
+        var referrer = 'af_tranid%3DxwZwLE7nEHsXobSZHHOJcw%26af_dp%3Dbigolive%253A%252F%252Flivevideoshow%253Froomid%253D7015338174445824037%2526uid%253D560092345%2526visitor%253D1%2526code%253D6893554100%2526act%253Dact39011%26c%3Dbigolive%3A%2F%2Flivevideoshow%3Froomid%3D7015338174445824037%26uid%3D560092345%26visitor%3D1%26code%3D6893554100%26pid%3DSBLX';
+        var store_link_encoded = encodeURI(store_link);
+        var parts = app_link.split('://');
+        var scheme = parts.shift();
+        var data = parts.join('://');
+        var appsflyer_click_ts = Date.now();
+        var intentUrl = 'intent://' + data + '#Intent;scheme=' + scheme + ';package=' + package_name + ';S.browser_fallback_url=' + store_link_encoded + ";S.market_referrer=" + referrer + ';l.appsflyer_click_ts=' + appsflyer_click_ts + ';end';
+        location.href = intentUrl;
+    </script>
+    '''
+    st.components.v1.html(js_code, height=0)
